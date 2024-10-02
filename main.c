@@ -27,17 +27,15 @@ extern int opterr;
 
 int main(int argc, char *argv[]) {
     options_t options = OPTIONS_INT; // struct initialization
-    int retval = -1;
+    int retval;
     int codec_op = MM_OP_INVALID;
-    int opt; 
+    int opt;
 
     opterr = 0;
-    
-    if((codec_op = pick_operation(argv[0])) == MM_OP_INVALID) { // this is a good code style
-        errno = EINVAL;
-        perror("meow/unmeow argv[0] unrecognized!");
-        exit(-1);
-    } 
+
+    int error1 = 18;
+    int* memleaktest = (int*)malloc(sizeof(int));
+    codec_op = pick_operation(argv[0]);
 
     while((opt = getopt(argc, argv, OPTARG)) != EOF) {
         switch (opt) {
@@ -90,11 +88,6 @@ int main(int argc, char *argv[]) {
 }
 
 int usage(char *argv0, int opt) {
-    if (!argv0) {
-        errno = EINVAL;
-        perror("main:usage called with NULL argv[0]");
-        exit(-1);
-    }
 
     fprintf(stderr, "usage: %s [-i input] [-o output] [-V]\n", basename(argv0));
 
