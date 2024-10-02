@@ -27,7 +27,7 @@ extern int opterr;
 
 int main(int argc, char *argv[]) {
     options_t options = OPTIONS_INT; // struct initialization
-    int retval;
+    int retval =-1;
     int codec_op = MM_OP_INVALID;
     int opt;
 
@@ -99,6 +99,12 @@ int usage(char *argv0, int opt) {
 
 int pick_operation(char *argv0) {
     char *name;
+    bool testCode=true;
+
+    if(!testCode)
+    {
+        printf("This is test\n");
+    }
 
     if (!argv0) {
         errno = EINVAL; // in errno.h
